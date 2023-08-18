@@ -1,0 +1,98 @@
+#include <stdio.h>
+#define MAX_SIZE 100
+int a[MAX_SIZE];
+int n;
+void createArray() {
+ printf("Enter the size of the array (max %d): ", MAX_SIZE);
+ scanf("%d", &n);
+ printf("Enter the elements for the array:\n");
+ for (int i = 0; i < n; i++) {
+ printf("Enter element %d: ", i + 1);
+ scanf("%d", &a[i]);
+ }
+}
+void displayArray() {
+ if (n == 0) {
+ printf("Array is empty.\n");
+ return;
+ }
+ printf("Array elements are:\n");
+ for (int i = 0; i < n; i++) {
+ printf("%d ", a[i]);
+ }
+ printf("\n");
+}
+void insertElement() {
+ int pos, elem;
+ if (n >= MAX_SIZE) {
+ printf("Array is full. Cannot insert more elements.\n");
+ return;
+ }
+ printf("Enter the position to insert the element (0 to %d): ", n);
+ scanf("%d", &pos);
+ if (pos < 0 || pos > n) {
+ printf("Invalid position. Please enter a valid position.\n");
+ return;
+ }
+ printf("Enter the element to insert: ");
+ scanf("%d", &elem);
+ for (int i = n; i > pos; i--) {
+ a[i] = a[i - 1];
+ }
+ a[pos] = elem;
+ n++;
+ printf("Element inserted successfully.\n");
+}
+void deleteElement() {
+ int pos;
+ if (n == 0) {
+ printf("Array is empty. Cannot delete elements.\n");
+ return;
+ }
+ printf("Enter the position of the element to delete (0 to %d): ", n - 1);
+ scanf("%d", &pos);
+ if (pos < 0 || pos >= n) {
+ printf("Invalid position. Please enter a valid position.\n");
+ return;
+ }
+ int elem = a[pos];
+ for (int i = pos; i < n - 1; i++) {
+ a[i] = a[i + 1];
+ }
+ n--;
+ printf("Element %d deleted successfully.\n", elem);
+}
+int main() {
+ int choice;
+ n = 0;
+ do {
+ printf("\n--------Menu--------\n");
+ printf("1. Create an Array\n");
+ printf("2. Display Array\n");
+ printf("3. Insert Element\n");
+ printf("4. Delete Element\n");
+ printf("5. Exit\n");
+ printf("Enter your choice: ");
+ scanf("%d", &choice);
+ switch (choice) {
+ case 1:
+ createArray();
+ break;
+ case 2:
+ displayArray();
+ break;
+ case 3:
+ insertElement();
+ break;
+ case 4:
+ deleteElement();
+ break;
+ case 5:
+ printf("Exiting the program.\n");
+ break;
+ default:
+ printf("Invalid choice. Please try again.\n");
+ }
+ } while (choice != 5);
+ return 0;
+}
